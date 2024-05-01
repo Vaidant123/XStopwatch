@@ -26,52 +26,26 @@ function Stopwatch() {
     setIsRunning(false);
   };
 
-  const formatTime = () => {
-    const minutes = Math.floor(time / 60)
+  const formatTime = (currentTime) => {
+    const minutes = Math.floor(currentTime / 60)
       .toString()
       .padStart(2, "0");
-    const seconds = (time % 60).toString().padStart(2, "0");
+    const seconds = (currentTime % 60).toString().padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
-
-  if (time === 0 && !isRunning) {
-    console.log("Initial state");
-  }
-
-  const handleTestReset = () => {
-    handleReset();
-    console.log("Reset functionality");
-  };
-
-  useEffect(() => {
-    if (time > 0 && isRunning) {
-      console.log("Continuous operation");
-    }
-  }, [time, isRunning]);
-
-  console.log("Time format: ", formatTime());
-
-  useEffect(() => {
-    if (time === 59) {
-      console.log("Boundary condition 59sec");
-    }
-    if (time === 60) {
-      console.log("Boundary condition (1 minute) ");
-    }
-  }, [time]);
 
   return (
     <div className="container">
       <div className="stopwatch">
         <h1>Stopwatch</h1>
         <div className="time">
-          <p>Time: {formatTime()}</p>
+          <p>Time: {formatTime(time)}</p>
         </div>
         <div className="buttons">
           <button onClick={handleStartStop}>
             {isRunning ? "Stop" : "Start"}
           </button>
-          <button onClick={handleTestReset}>Reset</button>
+          <button onClick={handleReset}>Reset</button>
         </div>
       </div>
     </div>
