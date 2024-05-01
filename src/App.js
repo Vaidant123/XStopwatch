@@ -4,18 +4,20 @@ import "./App.css";
 function Stopwatch() {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [timer, setTimer] = useState(null);
 
   useEffect(() => {
-    let timer;
     if (isRunning) {
-      timer = setInterval(() => {
+      const interval = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
+      setTimer(interval);
     } else {
       clearInterval(timer);
     }
+
     return () => clearInterval(timer);
-  }, [isRunning]);
+  }, [isRunning, timer]);
 
   const handleStartStop = () => {
     setIsRunning((prevIsRunning) => !prevIsRunning);
@@ -26,11 +28,11 @@ function Stopwatch() {
     setIsRunning(false);
   };
 
-  const formatTime = (currentTime) => {
-    const minutes = Math.floor(currentTime / 60)
+  const formatTime = () => {
+    const minutes = Math.floor(time / 60)
       .toString()
       .padStart(2, "0");
-    const seconds = (currentTime % 60).toString().padStart(2, "0");
+    const seconds = (time % 60).toString().padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 
@@ -39,7 +41,7 @@ function Stopwatch() {
       <div className="stopwatch">
         <h1>Stopwatch</h1>
         <div className="time">
-          <p>Time: {formatTime(time)}</p>
+          <p>Time: {formatTime()}</p>
         </div>
         <div className="buttons">
           <button onClick={handleStartStop}>
