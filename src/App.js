@@ -34,6 +34,32 @@ function Stopwatch() {
     return `${minutes}:${seconds}`;
   };
 
+  if (time === 0 && !isRunning) {
+    console.log("Initial state");
+  }
+
+  const handleTestReset = () => {
+    handleReset();
+    console.log("Reset functionality");
+  };
+
+  useEffect(() => {
+    if (time > 0 && isRunning) {
+      console.log("Continuous operation");
+    }
+  }, [time, isRunning]);
+
+  console.log("Time format: ", formatTime());
+
+  useEffect(() => {
+    if (time === 59) {
+      console.log("Boundary condition 59sec");
+    }
+    if (time === 60) {
+      console.log("Boundary condition (1 minute) ");
+    }
+  }, [time]);
+
   return (
     <div className="container">
       <div className="stopwatch">
@@ -45,7 +71,7 @@ function Stopwatch() {
           <button onClick={handleStartStop}>
             {isRunning ? "Stop" : "Start"}
           </button>
-          <button onClick={handleReset}>Reset</button>
+          <button onClick={handleTestReset}>Reset</button>
         </div>
       </div>
     </div>
