@@ -1,0 +1,21 @@
+.container {
+  height: auto;
+  width: 150px;
+  border-style: solid;
+  background-color: white;
+  padding: 20px;
+}
+
+.stopwatch {
+  text-align: left;
+}
+
+.time {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: left;
+}
