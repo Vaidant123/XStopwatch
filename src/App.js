@@ -4,20 +4,18 @@ import "./App.css";
 function Stopwatch() {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [timer, setTimer] = useState(null);
 
   useEffect(() => {
+    let timer;
     if (isRunning) {
-      const interval = setInterval(() => {
+      timer = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
-      setTimer(interval);
     } else {
       clearInterval(timer);
     }
-
     return () => clearInterval(timer);
-  }, [isRunning, timer]);
+  }, [isRunning]);
 
   const handleStartStop = () => {
     setIsRunning((prevIsRunning) => !prevIsRunning);
