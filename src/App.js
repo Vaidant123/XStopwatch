@@ -7,6 +7,7 @@ function Stopwatch() {
 
   useEffect(() => {
     let timer;
+
     if (isRunning) {
       timer = setInterval(() => {
         setTime((prevTime) => prevTime + 1);
@@ -14,6 +15,7 @@ function Stopwatch() {
     } else {
       clearInterval(timer);
     }
+
     return () => clearInterval(timer);
   }, [isRunning]);
 
@@ -27,26 +29,22 @@ function Stopwatch() {
   };
 
   const formatTime = () => {
-    const minutes = Math.floor(time / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = (time % 60).toString().padStart(2, "0");
-    return `${minutes}:${seconds}`;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `Time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (
-    <div className="container">
-      <div className="stopwatch">
-        <h1>Stopwatch</h1>
-        <div className="time">
-          <p>Time: {formatTime()}</p>
-        </div>
-        <div className="buttons">
-          <button onClick={handleStartStop}>
-            {isRunning ? "Stop" : "Start"}
-          </button>
-          <button onClick={handleReset}>Reset</button>
-        </div>
+    <div className="stopwatch">
+      <h1>Stopwatch</h1>
+      <div className="time">
+        <p>{formatTime()}</p>
+      </div>
+      <div className="buttons">
+        <button onClick={handleStartStop}>
+          {isRunning ? "Stop" : "Start"}
+        </button>
+        <button onClick={handleReset}>Reset</button>
       </div>
     </div>
   );
